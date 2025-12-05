@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<System Name="lab1">
+	<VersionInfo Version="1.0" Author="alex" Date="2025-10-31">
+	</VersionInfo>
+	<Application Name="lab1App">
+		<SubAppNetwork>
+			<FB Name="OUT_ANY_CONSOLE" Type="OUT_ANY_CONSOLE" x="4100" y="300">
+				<Parameter Name="QI" Value="TRUE"/>
+				<Parameter Name="LABEL" Value="'hello'"/>
+			</FB>
+			<FB Name="E_CYCLE" Type="E_CYCLE" x="1600" y="500">
+				<Parameter Name="DT" Value="T#2s"/>
+			</FB>
+			<FB Name="ADD_2" Type="ADD_2" x="2900" y="1100">
+				<Parameter Name="IN1" Value="int#1"/>
+				<Parameter Name="IN2" Value="int#2"/>
+			</FB>
+			<FB Name="INT2INT" Type="INT2INT" x="3800" y="1300">
+			</FB>
+			<EventConnections>
+				<Connection Source="E_CYCLE.EO" Destination="ADD_2.REQ" dx1="358.82"/>
+				<Connection Source="ADD_2.CNF" Destination="INT2INT.REQ" dx1="205.88"/>
+				<Connection Source="INT2INT.CNF" Destination="OUT_ANY_CONSOLE.REQ" dx1="70.59" dx2="70.59" dy="-500"/>
+			</EventConnections>
+			<DataConnections>
+				<Connection Source="ADD_2.OUT" Destination="INT2INT.IN" dx1="205.88"/>
+				<Connection Source="INT2INT.OUT" Destination="OUT_ANY_CONSOLE.IN" dx1="70.59" dx2="70.59" dy="-400"/>
+			</DataConnections>
+		</SubAppNetwork>
+	</Application>
+	<Device Name="FORTE_PC" Type="FORTE_PC" x="2129.41" y="852.94">
+		<Parameter Name="MGR_ID" Value="&quot;localhost:61499&quot;" Comment="Device manager socket ID"/>
+		<Attribute Name="Profile" Type="STRING" Value="HOLOBLOC"/>
+		<Attribute Name="Color" Type="STRING" Value="255,190,111"/>
+		<Resource Name="EMB_RES" Type="EMB_RES" x="0" y="0">
+			<FBNetwork>
+				<EventConnections>
+					<Connection Source="START.COLD" Destination="lab1App.E_CYCLE.START" dx1="411.76"/>
+				</EventConnections>
+			</FBNetwork>
+		</Resource>
+	</Device>
+	<Segment Name="Ethernet" Type="Ethernet" x="2111.76" y="1823.53" dx1="1764.71">
+		<Attribute Name="Color" Type="STRING" Value="142,179,219"/>
+	</Segment>
+	<Mapping From="lab1App.E_CYCLE" To="FORTE_PC.EMB_RES"/>
+	<Mapping From="lab1App.OUT_ANY_CONSOLE" To="FORTE_PC.EMB_RES"/>
+	<Mapping From="lab1App.ADD_2" To="FORTE_PC.EMB_RES"/>
+	<Mapping From="lab1App.INT2INT" To="FORTE_PC.EMB_RES"/>
+	<Link SegmentName="Ethernet" CommResource="FORTE_PC" Comment="">
+	</Link>
+</System>

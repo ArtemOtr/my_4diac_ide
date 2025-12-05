@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<System Name="test" Comment="">
+	<VersionInfo Version="1.0" Author="alex" Date="2025-11-15">
+	</VersionInfo>
+	<Application Name="testApp" Comment="">
+		<SubAppNetwork>
+			<FB Name="OUT_ANY_CONSOLE" Type="OUT_ANY_CONSOLE" Comment="" x="4023.5294117647054" y="1411.764705882353">
+				<Parameter Name="QI" Value="TRUE"/>
+				<Parameter Name="IN" Value="STRING#'Hello world'"/>
+			</FB>
+		</SubAppNetwork>
+	</Application>
+	<Device Name="FORTE_PC" Type="FORTE_PC" Comment="" x="2776.470588235294" y="1205.8823529411764">
+		<Parameter Name="MGR_ID" Value="&quot;localhost:61499&quot;"/>
+		<Attribute Name="Profile" Type="STRING" Value="HOLOBLOC" Comment="device profile"/>
+		<Attribute Name="Color" Type="STRING" Value="255,190,111" Comment="color"/>
+		<Resource Name="EMB_RES" Type="EMB_RES" Comment="" x="0.0" y="0.0">
+			<FBNetwork>
+				<FB Name="OUT_ANY_CONSOLE" Type="OUT_ANY_CONSOLE" Comment="" x="4023.5294117647054" y="1411.764705882353">
+					<Parameter Name="QI" Value="TRUE"/>
+					<Parameter Name="IN" Value="STRING#'Hello world'"/>
+				</FB>
+				<EventConnections>
+					<Connection Source="START.COLD" Destination="OUT_ANY_CONSOLE.REQ" Comment="" dx1="1611.764705882353"/>
+				</EventConnections>
+			</FBNetwork>
+		</Resource>
+	</Device>
+	<Mapping From="testApp.OUT_ANY_CONSOLE" To="FORTE_PC.EMB_RES.OUT_ANY_CONSOLE"/>
+	<Segment Name="Ethernet" Type="Ethernet" Comment="" x="2264.705882352941" y="2276.470588235294" dx1="1764.705882352941">
+		<Attribute Name="Color" Type="STRING" Value="214,171,54" Comment="color"/>
+	</Segment>
+	<Link SegmentName="Ethernet" CommResource="FORTE_PC" Comment="">
+	</Link>
+</System>
