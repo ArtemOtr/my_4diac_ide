@@ -4,16 +4,21 @@ class FBootBuilder:
         self.req_id = 1
         self.commands = []
 
-    def add_fb(self, name, fbtype, params):
-        # For the first command use leading ';'
-        prefix = ";" if self.req_id == 1 else f"{self.resource};"
+    def create_workspace(self, name, fbtype):
+        first_req = ''';<Request Action="QUERY" ID="1"><FB Name="*" Type="*"/></Request>'''
+        self.commands.append(first_req)
+        self.req_id += 1
 
+        prefix = ";"
         cmd = f"{prefix}<Request ID='{self.req_id}' Action='CREATE'>"
         cmd += f"<FB Name='{name}' Type='{fbtype}'/>"
         cmd += "</Request>"
         self.commands.append(cmd)
         self.req_id += 1
 
+
+    def add_fb(self, name, params):
+        # For the first command use leading ';'
         # Parameters
         for p in params:
             prefix = f"{self.resource};"

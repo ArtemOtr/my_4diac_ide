@@ -21,10 +21,10 @@ def main():
 
     # Build fboot commands
     fb = FBootBuilder(p.resource)
-
+    fb.create_workspace(name="*", fbtype="*")
     for b in p.blocks:
         params = p.params.get(b["name"], [])
-        fb.add_fb(b["name"], b["type"], params)
+        fb.add_fb(b["name"], params)
 
     for c in p.event_connections:
         fb.add_connection(c[0], c[1])
